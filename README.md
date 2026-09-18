@@ -4,202 +4,196 @@
 
 ### **AI-Powered Voice Deepfake Detection & Audio Forensics**
 
-**E4 Multi-Scale Raw-Waveform CNN · Real-Time Detection · Forensic Analysis**
+**Detect synthetic speech. Inspect the evidence. Build trust in voice communication.**
 
 <br/>
 
-![SIH](https://img.shields.io/badge/Smart%20India%20Hackathon-SIH%202026-0A0A0A?style=for-the-badge)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![ML](https://img.shields.io/badge/ML-E4%20CNN-8B5CF6?style=for-the-badge)
+[![Smart India Hackathon](https://img.shields.io/badge/Smart%20India%20Hackathon-2026-111827?style=for-the-badge)](https://www.sih.gov.in/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111827)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![E4 CNN](https://img.shields.io/badge/Model-E4%20CNN-7C3AED?style=for-the-badge)](#-e4-detection-engine)
 
 <br/>
 
-> **VoiceGuard is an SIH-focused cybersecurity and AI project for detecting synthetic speech and voice deepfakes through real-time and forensic audio analysis.**
+**Real-time detection** · **Forensic analysis** · **Raw-waveform deep learning** · **SIH-ready demonstration**
 
 <br/>
 
-[Features](#-core-capabilities) · [Architecture](#-system-architecture) · [Model](#-e4-detection-engine) · [Performance](#-evaluation-snapshot) · [Setup](#-quick-start) · [API](#-api-reference)
+[Overview](#-overview) · [Architecture](#-architecture) · [Model](#-e4-detection-engine) · [Performance](#-evaluation-snapshot) · [Setup](#-quick-start) · [API](#-api-reference)
 
 </div>
 
 ---
 
-## 🎯 The Problem
+## 🧭 At a Glance
 
-Generative AI has made realistic voice synthesis increasingly accessible. In security-sensitive environments, a convincing synthetic voice can be used to impersonate individuals, manipulate audio evidence, or bypass trust-based communication workflows.
+<table>
+<tr>
+<td width="25%" align="center"><strong>🎙️ LIVE</strong><br/>Microphone detection</td>
+<td width="25%" align="center"><strong>🔎 FORENSIC</strong><br/>Audio file analysis</td>
+<td width="25%" align="center"><strong>🧠 E4 CNN</strong><br/>Raw-waveform inference</td>
+<td width="25%" align="center"><strong>⚡ FASTAPI</strong><br/>Real-time API</td>
+</tr>
+</table>
 
-VoiceGuard addresses the detection side of this problem by turning an audio recording or live microphone stream into a model-driven **REAL / FAKE** assessment while exposing additional acoustic information for analysis.
+> **VoiceGuard** is an AI-based audio security prototype developed for an **SIH-oriented cybersecurity use case**. It analyzes speech recordings and live microphone input to estimate whether audio is authentic or synthetic, while exposing supporting acoustic and model-level evidence.
 
-### The goal
+---
+
+# 🎯 The Problem
+
+Generative AI has lowered the barrier to producing highly convincing synthetic speech. Voice impersonation can affect authentication, fraud prevention, media verification, digital investigations, and trust-based communication.
+
+The challenge is not simply to produce a **REAL / SYNTHETIC** label. A useful detection system should also provide a workflow for **inspection, evidence, latency, confidence, and technical interpretation**.
+
+### VoiceGuard's objective
 
 ```text
-              TRUSTED AUDIO COMMUNICATION
-                         │
-                         ▼
-                ┌─────────────────┐
-                │    VoiceGuard   │
-                │  Audio Analysis │
-                └────────┬────────┘
-                         │
-              ┌──────────┴──────────┐
-              ▼                     ▼
-        LIVE MICROPHONE         AUDIO FILE
-              │                     │
-              ▼                     ▼
-          WebSocket              REST API
-              │                     │
-              └──────────┬──────────┘
-                         ▼
-                 E4 CNN INFERENCE
-                         │
-              ┌──────────┴──────────┐
-              ▼                     ▼
-           REAL                  SYNTHETIC
+                 UNTRUSTED AUDIO
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+      LIVE VOICE                AUDIO FILE
+          │                         │
+          └────────────┬────────────┘
+                       ▼
+              ┌─────────────────┐
+              │    VOICEGUARD   │
+              │  AUDIO FORENSICS│
+              └────────┬────────┘
+                       ▼
+                E4 CNN INFERENCE
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+           REAL              SYNTHETIC
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+            SUPPORTING EVIDENCE
+       waveform · spectrum · metrics
 ```
 
 ---
 
-# ✨ Core Capabilities
+# ✨ What VoiceGuard Does
 
-<table>
-<tr>
-<td width="50%">
-
-### 🎙️ Real-Time Detection
+### 🎙️ Real-Time Voice Detection
 
 - Browser microphone capture
 - Web Audio API processing
 - WebSocket streaming inference
-- Rolling waveform visualization
-- Live frequency spectrum
-- REAL / FAKE verdict
-- Confidence / probability
-- Inference latency
-- Prediction history
+- Live waveform visualization
+- Frequency-spectrum visualization
+- Rolling prediction history
+- Confidence / probability output
+- Inference latency tracking
 
-</td>
-<td width="50%">
+### 🔬 Forensic Audio Analysis
 
-### 🔎 Forensic Analysis
-
-- Audio file upload
-- WAV / MP3 workflow
-- Interactive WaveSurfer waveform
-- Mel-spectrogram visualization
+- Audio file upload workflow
+- Waveform inspection
+- Audio playback
+- Log-Mel spectrogram visualization
 - Spectral statistics
-- Model confidence
-- Prediction latency
-- Audio duration
-- Supporting acoustic evidence
+- Duration and signal information
+- Model prediction and confidence
+- Supporting analysis for human review
 
-</td>
-</tr>
-<tr>
-<td>
+### 📊 Model & System Intelligence
 
-### 📊 Model Intelligence
-
-- E4 raw-waveform CNN
-- Configurable threshold
-- Model health monitoring
+- E4 Multi-Scale Raw-Waveform CNN
+- Configurable operating threshold
+- Model health endpoint
 - Evaluation metrics
-- ROC / AUC data
+- ROC / AUC information
 - Confusion matrix
 - Robustness benchmarks
-
-</td>
-<td>
-
-### 🧩 Presentation Layer
-
-- Technical architecture section
-- Engine comparison
-- Performance dashboard
-- System status
-- Interactive analysis UI
-- SIH-ready product presentation
-
-</td>
-</tr>
-</table>
+- Mock-vs-real inference status
 
 ---
 
-# 🏗️ System Architecture
+# 🏗️ Architecture
 
 ```mermaid
 flowchart TB
-    U[👤 User / Analyst]
-    U --> L[🎙️ Live Microphone]
-    U --> F[📁 Audio File]
+    USER([👤 User / Analyst])
 
-    L --> WA[Web Audio API]
-    WA --> WS[WebSocket /predict-stream]
-    F --> REST[HTTP POST /predict]
+    USER --> MIC[🎙️ Live Microphone]
+    USER --> FILE[📁 Audio File]
+
+    MIC --> WEB[Web Audio API]
+    WEB --> WS[WebSocket<br/>/predict-stream]
+    FILE --> REST[HTTP POST<br/>/predict]
 
     WS --> API[⚡ FastAPI Inference Layer]
     REST --> API
 
-    API --> PRE[🔬 Audio Processing]
-    PRE --> RES[Resample / Clip / Pad]
-    PRE --> SIG[Signal Statistics]
-    PRE --> MEL[Log-Mel Representation]
+    API --> PRE[🔧 Audio Preprocessing]
+    PRE --> NORM[Normalize / Resample]
+    PRE --> FIX[Clip / Pad / Prepare Waveform]
+    PRE --> FEATURES[Signal & Acoustic Analysis]
 
-    RES --> E4[🧠 E4 Multi-Scale Raw-Waveform CNN]
-    E4 --> SCORE[Probability + Confidence]
-    SCORE --> VERDICT[REAL / FAKE]
+    NORM --> E4[🧠 E4 Multi-Scale<br/>Raw-Waveform CNN]
+    FIX --> E4
 
-    SIG --> UI[📊 VoiceGuard Dashboard]
-    MEL --> UI
-    VERDICT --> UI
-    SCORE --> UI
+    E4 --> SCORE[Probability / Confidence]
+    SCORE --> DECISION{Operating Threshold<br/>0.5}
+
+    DECISION --> REAL[✅ REAL]
+    DECISION --> FAKE[⚠️ SYNTHETIC]
+
+    FEATURES --> DASH[📊 VoiceGuard Dashboard]
+    SCORE --> DASH
+    REAL --> DASH
+    FAKE --> DASH
 ```
 
-### Request lifecycle
+### 🔄 End-to-End Inference Flow
 
 ```mermaid
 sequenceDiagram
-    participant B as Browser
+    autonumber
+    participant U as User
+    participant F as Frontend
     participant A as FastAPI
-    participant P as Preprocessing
-    participant M as E4 Model
-    participant D as Dashboard
+    participant P as Audio Pipeline
+    participant M as E4 CNN
 
-    B->>A: Audio stream / upload
-    A->>P: Decode + normalize audio
+    U->>F: Upload audio / speak into microphone
+    F->>A: Audio request or WebSocket stream
+    A->>P: Decode and prepare audio
+    P->>P: Normalize / resample / clip / pad
     P->>M: Prepared waveform
     M-->>A: Prediction probability
-    A-->>D: Verdict + confidence + latency
-    D-->>B: Visual analysis result
+    A-->>F: Verdict + confidence + latency
+    F-->>U: Visual result + acoustic evidence
 ```
 
 ---
 
 # 🧠 E4 Detection Engine
 
-VoiceGuard's current backend uses the **E4 Multi-Scale Raw-Waveform CNN** as its active detection engine.
+The active VoiceGuard backend uses the **E4 Multi-Scale Raw-Waveform CNN**.
 
-The important distinction is that the model consumes raw waveform information in the inference pipeline rather than relying solely on a frontend visualization or a rule-based detector.
-
-### Model pipeline
+The inference pipeline is designed around waveform-level information rather than treating a spectrogram displayed by the UI as the detector itself.
 
 ```mermaid
 flowchart LR
-    A[Raw Audio] --> B[Audio Decode]
-    B --> C[Sampling / Normalization]
+    A[Raw Audio] --> B[Decode]
+    B --> C[Normalize / Resample]
     C --> D[Fixed-Length Waveform]
     D --> E[E4 Multi-Scale CNN]
     E --> F[Probability]
-    F --> G{Threshold 0.5}
-    G -->|Above| H[FAKE]
-    G -->|Below| I[REAL]
+    F --> G{Threshold = 0.5}
+    G -->|Below| H[REAL]
+    G -->|Above| I[SYNTHETIC]
 ```
 
-### Current health contract
+### Current backend health state
 
-A healthy real-model deployment reports:
+The deployed local backend has been verified with a successful health response indicating:
 
 ```json
 {
@@ -212,36 +206,34 @@ A healthy real-model deployment reports:
 }
 ```
 
-`is_mock: false` is the key indicator that the backend is operating outside its fallback mock path.
+**`is_mock: false`** indicates that the backend is not operating in its mock inference path.
 
 ---
 
-# 🔬 Acoustic Analysis Layer
+# 🔬 Supporting Acoustic Analysis
 
-VoiceGuard combines neural inference with signal-level analysis so that the dashboard can show more than a single classification label.
+VoiceGuard exposes signal-level information alongside neural inference to make the result more inspectable.
 
-| Signal | Purpose |
+| Analysis | What it provides |
 |---|---|
-| **Raw waveform** | Primary representation for E4 inference |
-| **Log-Mel spectrogram** | Time-frequency visualization |
-| **Spectral centroid** | Center of spectral energy |
-| **Spectral bandwidth** | Distribution of spectral energy |
-| **Spectral rolloff** | High-frequency energy boundary |
+| **Raw waveform** | Time-domain representation used by the E4 inference path |
+| **Log-Mel spectrogram** | Time-frequency view of the recording |
+| **Spectral centroid** | Location of spectral energy concentration |
+| **Spectral bandwidth** | Spread of spectral energy |
+| **Spectral rolloff** | Frequency boundary containing most spectral energy |
 | **Zero-crossing rate** | Temporal sign-change behavior |
 | **Spectral flatness** | Tonal vs noise-like characteristics |
 
-These features provide **supporting acoustic context**; they are not independent proof of authenticity.
+> These measurements are **supporting evidence**, not standalone proof that an audio recording is genuine or synthetic.
 
 ---
 
-# 📊 Evaluation Snapshot
+# 📈 Evaluation Snapshot
 
-The repository currently contains evaluation data in `backend/metrics.json`.
+The repository contains the current evaluation configuration in `backend/metrics.json`.
 
-### Reported metrics
-
-| Metric | Current value |
-|---|---:|
+| Metric | Value |
+|:---|---:|
 | **Accuracy** | **96.42%** |
 | **Precision** | **95.87%** |
 | **Recall** | **97.15%** |
@@ -250,10 +242,10 @@ The repository currently contains evaluation data in `backend/metrics.json`.
 | **EER** | **3.58%** |
 | **Evaluation samples** | **4,850** |
 
-### Robustness benchmark
+### Robustness snapshot
 
-| Condition | Accuracy |
-|---|---:|
+| Test condition | Accuracy |
+|:---|---:|
 | Clean Audio | 98.2% |
 | Additive Noise · 10 dB | 94.5% |
 | High Noise · 0 dB | 88.7% |
@@ -261,67 +253,70 @@ The repository currently contains evaluation data in `backend/metrics.json`.
 | Low-Bitrate MP3 · 32 kbps | 92.8% |
 | Short Utterance · 1.0 s | 86.4% |
 
-> **Evaluation note:** These figures are the values currently stored in the repository's metrics configuration. They are evaluation-specific and should be presented together with the underlying dataset, split, protocol, and experimental conditions. They should not be interpreted as universal real-world accuracy.
-
-### Confusion matrix
+### Confusion Matrix
 
 ```text
-                 Predicted
-              REAL       FAKE
-Actual REAL   2380        70
-       FAKE    103      2297
+                         PREDICTED
+                    ┌───────────┬───────────┐
+                    │   REAL    │ SYNTHETIC │
+        ┌───────────┼───────────┼───────────┤
+ ACTUAL │   REAL    │   2380    │     70    │
+        ├───────────┼───────────┼───────────┤
+        │ SYNTHETIC │    103    │   2297    │
+        └───────────┴───────────┴───────────┘
 ```
+
+> **Evaluation note:** These values are the metrics currently stored in the repository. They should be interpreted in the context of the dataset, split strategy, synthesis systems, preprocessing pipeline, and evaluation protocol used to produce them. They are not a guarantee of universal real-world performance.
+
+---
+
+# 🖥️ Product Experience
+
+```mermaid
+flowchart LR
+    A[Landing / System Overview] --> B[Live Detector]
+    A --> C[Forensic Analyzer]
+    A --> D[Performance]
+    A --> E[Technical Details]
+
+    B --> B1[Microphone]
+    B --> B2[Waveform]
+    B --> B3[Live Prediction]
+
+    C --> C1[Upload]
+    C --> C2[Spectrogram]
+    C --> C3[Signal Analysis]
+
+    D --> D1[Metrics]
+    D --> D2[ROC / AUC]
+    D --> D3[Robustness]
+```
+
+### Live Detector
+
+A demonstration-oriented workspace for microphone input, streaming inference, waveform/spectrum visualization, confidence, and prediction history.
+
+### Forensic Analyzer
+
+A deeper analysis workflow for uploaded recordings, combining playback, waveform inspection, spectrogram visualization, acoustic statistics, and model output.
+
+### Performance & Technical Views
+
+Presentation-friendly views for communicating model performance, system architecture, signal analysis, and deployment status.
 
 ---
 
 # ⚙️ Technology Stack
 
-<table>
-<tr>
-<td valign="top" width="33%">
-
-### Frontend
-
-- React 19
-- TypeScript
-- Tailwind CSS v4
-- Vite
-- Lucide React
-- Recharts
-- WaveSurfer.js
-- Web Audio API
-- Oxlint
-
-</td>
-<td valign="top" width="33%">
-
-### Backend
-
-- Python 3.10+
-- FastAPI
-- Uvicorn
-- WebSockets
-- NumPy
-- SciPy
-- librosa
-- SoundFile
-
-</td>
-<td valign="top" width="33%">
-
-### ML / Audio
-
-- E4 Multi-Scale CNN
-- Raw waveform inference
-- Audio preprocessing
-- Signal statistics
-- Log-Mel analysis
-- Configurable threshold
-- Model manager
-
-</td>
-</tr>
-</table>
+| Layer | Technologies |
+|:---|:---|
+| **Frontend** | React 19 · TypeScript · Vite · Tailwind CSS · Lucide React · Recharts · WaveSurfer.js |
+| **Browser Audio** | Web Audio API · Microphone Media APIs |
+| **Backend** | Python · FastAPI · Uvicorn · WebSockets |
+| **Audio / DSP** | NumPy · SciPy · librosa · SoundFile |
+| **ML** | PyTorch / E4 Multi-Scale Raw-Waveform CNN |
+| **API** | REST · WebSocket |
+| **Developer Tooling** | npm · Git · GitHub |
 
 ---
 
@@ -331,16 +326,16 @@ Actual REAL   2380        70
 VoiceGuard/
 │
 ├── backend/
-│   ├── main.py                  # FastAPI app + REST/WebSocket endpoints
-│   ├── model_loader.py          # Model loading and inference manager
-│   ├── feature_extraction.py    # Audio preprocessing + signal analysis
-│   ├── metrics.json             # Evaluation and robustness metrics
-│   ├── requirements.txt         # Python dependencies
+│   ├── main.py
+│   ├── model_loader.py
+│   ├── feature_extraction.py
+│   ├── metrics.json
+│   ├── requirements.txt
 │   │
 │   └── models/
 │       └── e4/
-│           ├── e4_model.py      # E4 architecture
-│           └── best_e4.pt       # Trained E4 checkpoint
+│           ├── e4_model.py
+│           └── best_e4.pt
 │
 ├── frontend/
 │   ├── src/
@@ -360,14 +355,13 @@ VoiceGuard/
 │   │   │       └── TechnicalDetails.tsx
 │   │   ├── hooks/
 │   │   └── lib/
-│   │
 │   ├── package.json
 │   ├── vite.config.ts
 │   └── tsconfig.json
 │
-├── START_VOICEGUARD.bat         # Windows launcher
-├── run_app.bat                  # Application runner
-├── CLAUDE.md                    # Development instructions
+├── START_VOICEGUARD.bat
+├── run_app.bat
+├── CLAUDE.md
 └── README.md
 ```
 
@@ -375,20 +369,25 @@ VoiceGuard/
 
 # 🚀 Quick Start
 
-## 1. Clone
+## 1. Clone the repository
 
 ```bash
 git clone https://github.com/Jyatin/VoiceGuard.git
 cd VoiceGuard
 ```
 
-## 2. Start the backend
+## 2. Create the backend environment
 
 ```powershell
 cd backend
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+## 3. Start FastAPI
+
+```powershell
 uvicorn main:app --reload --port 8000
 ```
 
@@ -398,13 +397,13 @@ Backend:
 http://127.0.0.1:8000
 ```
 
-API documentation:
+Interactive API docs:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-## 3. Start the frontend
+## 4. Start the frontend
 
 Open a second terminal:
 
@@ -414,7 +413,7 @@ npm install
 npm run dev
 ```
 
-If PowerShell blocks `npm.ps1`:
+If PowerShell blocks the npm script:
 
 ```powershell
 npm.cmd install
@@ -423,55 +422,53 @@ npm.cmd run dev
 
 ---
 
-# 🩺 Verify the Model
+# 🩺 Verify Before a Demo
 
-Before an SIH demonstration, verify the backend first:
+Run:
 
 ```powershell
 curl.exe http://127.0.0.1:8000/health
 ```
 
-Expected real-model state:
+A real-model deployment should report a healthy state with:
 
 ```text
-status              = healthy
-is_mock             = false
-lightweight_loaded  = true
-engine              = E4 Multi-Scale Raw-Waveform CNN
+status             : healthy
+is_mock            : false
+lightweight_loaded : true
+engine             : E4 Multi-Scale Raw-Waveform CNN
 ```
 
-### Demo checklist
+### SIH Demo Readiness Checklist
 
-```text
-☐ Backend running on port 8000
-☐ /health returns healthy
-☐ is_mock = false
-☐ E4 checkpoint loaded
-☐ Frontend connected to backend
-☐ Microphone permission granted
-☐ Test REAL sample ready
-☐ Test SYNTHETIC sample ready
-☐ Upload workflow verified
-☐ Performance dashboard verified
-```
+- [ ] Backend starts successfully
+- [ ] `/health` returns `healthy`
+- [ ] `is_mock` is `false`
+- [ ] E4 model checkpoint loads successfully
+- [ ] Frontend starts successfully
+- [ ] Browser microphone permission is granted
+- [ ] Known REAL sample is ready
+- [ ] Known SYNTHETIC sample is ready
+- [ ] File upload workflow works
+- [ ] Live streaming workflow works
+- [ ] Performance section is ready to present
+- [ ] Network / backend URLs are configured correctly
 
 ---
 
 # 📡 API Reference
 
 | Method | Endpoint | Purpose |
-|---|---|---|
+|:---:|:---|:---|
 | `GET` | `/` | Service information |
-| `GET` | `/health` | Backend + model health |
+| `GET` | `/health` | Backend and model health |
 | `POST` | `/predict` | File-based audio inference |
 | `WS` | `/predict-stream` | Real-time streaming inference |
-| `GET` | `/metrics` | Evaluation/visualization metrics |
+| `GET` | `/metrics` | Evaluation and visualization metrics |
 
-## `POST /predict`
+### `POST /predict`
 
-Accepts an uploaded audio file and returns model inference information.
-
-Example:
+Accepts an audio file and returns model inference information. A representative response can contain:
 
 ```json
 {
@@ -484,11 +481,9 @@ Example:
 }
 ```
 
-The endpoint may also return waveform data, Mel-spectrogram information, and extracted acoustic statistics used by the frontend.
+### `WS /predict-stream`
 
-## `WS /predict-stream`
-
-The live detector sends audio over WebSocket and receives predictions continuously.
+The live detector sends audio chunks over WebSocket and receives prediction updates.
 
 ```json
 {
@@ -501,152 +496,129 @@ The live detector sends audio over WebSocket and receives predictions continuous
 }
 ```
 
----
-
-# 🖥️ Product Experience
-
-### Live Detection Workspace
-
-Designed for a live demonstration: start the microphone, stream speech, watch the waveform and spectrum, and observe the evolving model verdict and confidence.
-
-### Forensic Analyzer
-
-Designed for deeper inspection of an uploaded recording: playback the waveform, inspect the Mel-spectrogram, review signal statistics, and examine the model output.
-
-### Performance Dashboard
-
-Presents the configured evaluation metrics, ROC information, confusion matrix, and robustness conditions in a presentation-friendly format.
-
-### Technical Overview
-
-Explains the pipeline from audio capture to preprocessing, E4 inference, classification, and visualization.
+> Response fields can evolve with the backend implementation. Use `/docs` and the source code as the authoritative API contract.
 
 ---
 
-# 🏆 Smart India Hackathon — Presentation Context
+# 🏆 Smart India Hackathon — Demo Story
 
-VoiceGuard is being developed as an **SIH-oriented cybersecurity / AI solution** focused on the detection of AI-generated voice and audio spoofing.
-
-For an SIH presentation, the product story is intentionally structured around five questions:
+VoiceGuard is structured to make the technical story easy to communicate during an **SIH presentation**.
 
 ```mermaid
 flowchart LR
-    A[01 · Problem] --> B[02 · Why Existing Trust Fails]
-    B --> C[03 · VoiceGuard Solution]
-    C --> D[04 · Technical Architecture]
-    D --> E[05 · Live Demonstration]
+    P[01<br/>Problem] --> S[02<br/>Solution]
+    S --> A[03<br/>Architecture]
+    A --> M[04<br/>ML Engine]
+    M --> D[05<br/>Live Demo]
+    D --> E[06<br/>Evidence & Metrics]
 ```
 
-### Recommended live demo sequence
+### Recommended 5-minute walkthrough
 
-**1. Establish the problem**  
-Explain how synthetic speech can undermine voice-based trust.
+**01 — Problem**  
+Explain the security risk created by increasingly accessible voice synthesis.
 
-**2. Show the architecture**  
-Walk through browser → FastAPI → preprocessing → E4 CNN → verdict.
+**02 — Solution**  
+Introduce VoiceGuard as an analysis pipeline rather than a simple binary classifier.
 
-**3. Demonstrate live detection**  
-Use the microphone workflow and show the real-time prediction interface.
+**03 — Architecture**  
+Show browser → FastAPI → audio preprocessing → E4 CNN → result.
 
-**4. Demonstrate forensic analysis**  
-Upload a sample and show waveform, spectrogram, signal statistics, and inference output.
+**04 — Live Detection**  
+Speak into the microphone and demonstrate streaming inference.
 
-**5. Show evidence**  
-Open the performance dashboard and explain the evaluation protocol behind the displayed metrics.
+**05 — Forensic Analysis**  
+Upload a prepared recording and inspect waveform, spectrogram, acoustic information, and prediction.
 
-> **Presentation principle:** demonstrate the system as an evidence-producing analysis tool, not as an infallible oracle.
+**06 — Evidence**  
+Finish with the evaluation dashboard, robustness results, limitations, and future deployment direction.
 
 ---
 
-# 🔐 Responsible Use
+# 🔐 Responsible Use & Limitations
 
-VoiceGuard is a research and engineering prototype. Audio deepfake detection is an adversarial problem and performance can change with codecs, noise, recording hardware, languages, speakers, unseen synthesis systems, and distribution shift.
+VoiceGuard is a research / engineering prototype for audio deepfake analysis. Detection performance can vary with:
 
-A confidence score represents model output, not certainty.
+- unseen voice-generation systems
+- codecs and compression
+- background noise
+- microphones and recording environments
+- speaker characteristics
+- language and accent distribution
+- very short recordings
+- adversarial manipulation
+- distribution shift between training and deployment data
 
-For high-impact applications, predictions should be combined with appropriate human review and additional evidence.
-
----
-
-# 🧪 Development Notes
-
-### Windows health check
-
-PowerShell aliases `curl` to `Invoke-WebRequest` on many systems. Use:
-
-```powershell
-curl.exe http://127.0.0.1:8000/health
-```
-
-### Backend model path
-
-```text
-backend/models/e4/best_e4.pt
-```
-
-### API configuration
-
-Frontend API integration is maintained in:
-
-```text
-frontend/src/lib/api.ts
-```
-
-### Audio processing
-
-Backend signal processing is maintained in:
-
-```text
-backend/feature_extraction.py
-```
-
-### Model management
-
-Model discovery and loading are maintained in:
-
-```text
-backend/model_loader.py
-```
+A model confidence score is **not proof of authenticity**. High-impact decisions should incorporate human review and additional evidence.
 
 ---
 
-# 🛣️ Roadmap
+# 🗺️ Roadmap
 
+### Current
+
+- [x] E4 raw-waveform inference engine
 - [x] FastAPI inference service
-- [x] E4 model integration
-- [x] Real-time WebSocket inference
-- [x] Browser microphone capture
-- [x] File-based analysis
-- [x] Waveform visualization
-- [x] Spectrogram visualization
-- [x] Acoustic signal statistics
-- [x] Evaluation dashboard
+- [x] Real-time WebSocket detection
+- [x] Audio upload analysis
+- [x] Waveform / spectrum visualization
+- [x] Acoustic analysis layer
+- [x] Performance dashboard
 - [x] Model health monitoring
+
+### Next
+
 - [ ] Expanded multilingual evaluation
 - [ ] Larger cross-generator benchmark
-- [ ] Production deployment pipeline
+- [ ] Better calibration of confidence scores
+- [ ] Explainability / attribution views
 - [ ] Model versioning and experiment tracking
-- [ ] Explainability research and calibrated uncertainty
+- [ ] Containerized deployment
+- [ ] Production-grade authentication and access control
+- [ ] Continuous evaluation against emerging synthesis models
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome for improvements to the frontend, backend, audio-processing pipeline, testing, documentation, and evaluation methodology.
+Contributions, experiments, bug reports, and research improvements are welcome.
 
-Before opening a change:
+```bash
+git checkout -b feature/your-feature
+git add .
+git commit -m "feat: describe your change"
+git push origin feature/your-feature
+```
 
-1. Verify the backend health endpoint.
-2. Test the affected frontend workflow.
-3. Avoid committing secrets or local environment files.
-4. Document changes that affect the API contract.
-5. Include evaluation context when changing model metrics.
+Then open a pull request with:
+
+- problem statement
+- implementation summary
+- screenshots / benchmark results where relevant
+- testing performed
+- known limitations
 
 ---
 
-# 📜 License
+# 📚 Project Focus
 
-No explicit open-source license is currently declared in this repository. If this project is intended for public redistribution, add an appropriate `LICENSE` file.
+VoiceGuard brings together **AI/ML, audio signal processing, cybersecurity, real-time systems, and modern web engineering** into one demonstrable platform.
+
+```text
+                 ┌───────────────────────────┐
+                 │        VOICEGUARD          │
+                 └─────────────┬─────────────┘
+                               │
+       ┌───────────────────────┼───────────────────────┐
+       │                       │                       │
+       ▼                       ▼                       ▼
+   AI / ML                AUDIO DSP             CYBERSECURITY
+       │                       │                       │
+       └───────────────────────┼───────────────────────┘
+                               │
+                               ▼
+                    REAL-TIME WEB PLATFORM
+```
 
 ---
 
@@ -654,8 +626,12 @@ No explicit open-source license is currently declared in this repository. If thi
 
 ### 🛡️ VoiceGuard
 
-**Detect the signal. Inspect the evidence. Protect the trust.**
+**AI-powered voice deepfake detection & audio forensics**
 
-Built for AI security research, audio forensics, and Smart India Hackathon presentation.
+Built for experimentation, demonstration, and continued research in trustworthy audio intelligence.
+
+<br/>
+
+**Smart India Hackathon 2026 · Voice Security · AI / ML · Audio Forensics**
 
 </div>
