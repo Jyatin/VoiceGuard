@@ -1,167 +1,396 @@
 # VoiceGuard 🛡️
-### Real-Time AI Voice Deepfake & Anti-Spoofing Detector (Smart India Hackathon)
 
-VoiceGuard is a cyber-defense grade, real-time AI voice deepfake detection system designed for high-stakes fraud prevention, voice biometric authentication, and telephonic interception.
+### E4 Multi-Scale Raw-Waveform CNN for AI Voice Deepfake Detection
 
----
+VoiceGuard is an end-to-end audio deepfake detection application that combines a Python/FastAPI inference backend with a React + TypeScript web interface. It is designed to analyze speech recordings, expose model and signal-level evidence, and provide an interactive interface for real-time and forensic-style audio analysis.
 
-## ⚡ Tech Stack
-
-- **Frontend**: React 19, Vite, TypeScript, Tailwind CSS v4, Lucide Icons, Recharts, WaveSurfer.js
-- **Audio Capture**: Web Audio API (`getUserMedia`, `AudioContext`, `AnalyserNode`, `ScriptProcessorNode` downsampled to 16kHz mono PCM)
-- **Backend**: Python 3.10+ / 3.13 / 3.14, FastAPI, WebSockets, Uvicorn
-- **Acoustic Signal Processing**: `librosa`, `soundfile`, `scipy`, `numpy`
-- **Neural Architecture**: Dual-Engine (Lightweight CNN-BiLSTM for live streaming; Multi-fold Ensemble for deep forensic uploads)
+> **Current model engine:** E4 Multi-Scale Raw-Waveform CNN  
+> **Backend:** FastAPI + Uvicorn  
+> **Frontend:** React 19 + TypeScript + Tailwind CSS v4  
+> **Audio processing:** NumPy, SciPy, librosa, SoundFile  
+> **API:** REST + WebSocket
 
 ---
 
-## 🚀 Quick Start Guide
+## ✨ What VoiceGuard Does
 
-Run the backend and frontend in two separate terminal windows.
+VoiceGuard is built around a simple workflow:
 
-### 1. Backend Setup & Run
+```text
+Audio Input
+    │
+    ├── Microphone stream ──► WebSocket inference
+    │
+    └── Audio file ─────────► REST inference
+                                  │
+                                  ▼
+                       Audio preprocessing
+                                  │
+                                  ▼
+                    E4 raw-waveform CNN engine
+                                  │
+                                  ▼
+                    REAL / FAKE + confidence
+                                  │
+                                  ▼
+                Waveform + acoustic evidence + UI
+```
 
-Open a terminal and navigate to `voiceguard/backend`:
+The application exposes both **model output** and **supporting acoustic information**, making it useful for demonstrations, experimentation, and research-oriented audio-forensics workflows.
+
+---
+
+## 🚀 Features
+
+### Real-Time Detection
+
+- Microphone capture through the browser Web Audio API.
+- Low-latency WebSocket communication with the FastAPI backend.
+- Rolling waveform visualization.
+- Live frequency-domain visualization.
+- REAL / FAKE verdict display.
+- Confidence and probability readouts.
+- Inference latency display.
+- Rolling inference history.
+
+### Forensic Audio Analysis
+
+- Audio file upload and analysis.
+- WAV / MP3 workflow support in the frontend.
+- Interactive waveform playback with WaveSurfer.js.
+- Mel-spectrogram visualization.
+- Acoustic signal statistics including:
+  - Spectral centroid
+  - Spectral bandwidth
+  - Spectral rolloff
+  - Zero-crossing rate
+  - Spectral flatness
+- Model result and latency information returned by the API.
+
+### Model & System Monitoring
+
+- Backend health endpoint.
+- Model-loaded status.
+- Mock-vs-real inference status.
+- Operating threshold reporting.
+- Configurable metrics endpoint.
+- Dedicated technical and architecture sections in the UI.
+
+---
+
+## 🧠 Detection Engine
+
+The current backend is configured around the **E4 Multi-Scale Raw-Waveform CNN**.
+
+Unlike a UI-only demo, the repository contains the Python inference pipeline, model loader, feature extraction utilities, model implementation, configuration, and trained E4 checkpoint.
+
+The backend health response reports the active engine and whether inference is running in mock or real mode.
+
+Example health response:
+
+```json
+{
+  "status": "healthy",
+  "is_mock": false,
+  "operating_threshold": 0.5,
+  "ensemble_folds": 0,
+  "lightweight_loaded": true,
+  "engine": "E4 Multi-Scale Raw-Waveform CNN"
+}
+```
+
+A healthy response with `"is_mock": false` indicates that the backend is not using its fallback mock inference path.
+
+---
+
+## 🏗️ System Architecture
+
+```text
+┌────────────────────────────────────────────────────────────┐
+│                        VoiceGuard UI                       │
+│              React 19 · TypeScript · Tailwind v4          │
+│                                                            │
+│  Live Detector │ Forensic Analyzer │ Metrics │ Technical   │
+└────────────────────────────┬───────────────────────────────┘
+                             │
+                     HTTP / WebSocket
+                             │
+                             ▼
+┌────────────────────────────────────────────────────────────┐
+│                     FastAPI Backend                        │
+│                                                            │
+│  /health     /metrics     /predict     /predict-stream     │
+└────────────────────────────┬───────────────────────────────┘
+                             │
+                             ▼
+┌────────────────────────────────────────────────────────────┐
+│                  Audio Processing Layer                    │
+│                                                            │
+│  Load → Resample → Clip/Pad → Log-Mel / Signal Statistics │
+└────────────────────────────┬───────────────────────────────┘
+                             │
+                             ▼
+┌────────────────────────────────────────────────────────────┐
+│                  E4 Model Manager                          │
+│                                                            │
+│       Multi-Scale Raw-Waveform CNN + checkpoint            │
+└────────────────────────────┬───────────────────────────────┘
+                             │
+                             ▼
+                   Classification Result
+                  REAL / FAKE + confidence
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Lucide React** for icons
+- **Recharts** for data visualization
+- **WaveSurfer.js** for waveform playback
+- **Web Audio API** for microphone/audio capture
+- **Vite configuration** for the frontend toolchain
+- **Oxlint** for linting
+
+### Backend
+
+- **Python 3.10+**
+- **FastAPI**
+- **Uvicorn**
+- **WebSockets**
+- **NumPy**
+- **SciPy**
+- **librosa**
+- **SoundFile**
+
+### Machine Learning
+
+- **E4 Multi-Scale Raw-Waveform CNN**
+- Raw audio waveform inference
+- Model checkpoint loading through the backend model manager
+- Configurable operating threshold
+- Signal preprocessing and feature extraction
+
+---
+
+## 📁 Project Structure
+
+```text
+VoiceGuard/
+│
+├── backend/
+│   ├── main.py                    # FastAPI application and API endpoints
+│   ├── model_loader.py            # Model discovery/loading and inference manager
+│   ├── feature_extraction.py      # Audio loading and signal processing
+│   ├── metrics.json               # Model/application metrics
+│   ├── requirements.txt            # Python dependencies
+│   │
+│   └── models/
+│       ├── config.json             # Model configuration / threshold
+│       └── e4/
+│           ├── e4_model.py         # E4 model implementation
+│           └── best_e4.pt          # E4 trained checkpoint
+│
+├── frontend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── index.html
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   │
+│   └── src/
+│       ├── App.tsx
+│       ├── main.tsx
+│       ├── index.css
+│       ├── types.ts
+│       │
+│       ├── components/
+│       │   ├── LiveDetector.tsx
+│       │   ├── ForensicAnalyzer.tsx
+│       │   └── site/
+│       │       ├── Hero.tsx
+│       │       ├── Navigation.tsx
+│       │       ├── AcousticSignals.tsx
+│       │       ├── ArchitecturePipeline.tsx
+│       │       ├── EngineComparison.tsx
+│       │       ├── PerformanceSection.tsx
+│       │       ├── ProblemSection.tsx
+│       │       ├── SystemStatus.tsx
+│       │       ├── TechnicalDetails.tsx
+│       │       ├── FinalCTA.tsx
+│       │       └── Mark.tsx
+│       │
+│       ├── hooks/
+│       │   ├── useHealth.ts
+│       │   └── useInView.ts
+│       │
+│       └── lib/
+│           ├── api.ts
+│           └── signal.ts
+│
+├── START_VOICEGUARD.bat
+├── run_app.bat
+├── CLAUDE.md
+└── README.md
+```
+
+---
+
+## 💻 Prerequisites
+
+Install the following before running VoiceGuard locally:
+
+- **Python 3.10+**
+- **Node.js + npm**
+- A modern Chromium, Firefox, or Edge browser for microphone access
+- Git
+
+For real E4 inference, the required model checkpoint must be available under:
+
+```text
+backend/models/e4/best_e4.pt
+```
+
+---
+
+## ⚡ Quick Start
+
+### 1. Clone the repository
 
 ```bash
-cd voiceguard/backend
+git clone https://github.com/Jyatin/VoiceGuard.git
+cd VoiceGuard
+```
 
-# Option A: Using the pre-created virtual environment
-.\venv\Scripts\activate
+### 2. Backend setup
 
-# Option B: Or create a new virtual environment
+Open a terminal in the repository root:
+
+```powershell
+cd backend
 python -m venv venv
 .\venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
+```
 
-# Start the FastAPI server
+Start the API:
+
+```powershell
 uvicorn main:app --reload --port 8000
 ```
 
-> Backend will be live at `http://127.0.0.1:8000`  
-> Interactive OpenAPI documentation: `http://127.0.0.1:8000/docs`
+The backend should be available at:
 
----
-
-### 2. Frontend Setup & Run
-
-Open a second terminal and navigate to `voiceguard/frontend`:
-
-```bash
-cd voiceguard/frontend
-
-# Install packages
-npm install
-# Note: On Windows if npm.ps1 is blocked by script execution policy, use:
-# npm.cmd install
-
-# Start Vite dev server
-npm run dev
-# or: npm.cmd run dev
+```text
+http://127.0.0.1:8000
 ```
 
-> Open your browser to `http://localhost:5173/`
+Interactive API documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### 3. Frontend setup
+
+Open a second terminal:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+If Windows PowerShell blocks `npm.ps1`, use:
+
+```powershell
+npm.cmd install
+npm.cmd run dev
+```
+
+> The repository currently contains Vite frontend configuration. If the local `package.json` development script is changed during development, use the script defined in the current checkout rather than assuming a fixed dev-server port.
 
 ---
 
-## 🧭 Application Modules & Layout
+## 🩺 Verify the Backend
 
-### 1. Live Detection (Default Tab)
-- **Big Mic Button**: Single-click toggle to capture microphone audio using the Web Audio API.
-- **WebSocket Streaming (`/predict-stream`)**: Streams 16kHz mono Float32 PCM chunks (~1.5s windows with 1.0s overlap) via low-latency WebSocket.
-- **Dual Visualizers**:
-  - Real-time rolling waveform monitor.
-  - Live FFT frequency spectrum bars powered by an `AnalyserNode` (`getByteFrequencyData`) with cyan/teal gradients.
-- **High-Visibility Verdict Badge**:
-  - 🟢 **REAL** (Emerald glow) vs 🔴 **FAKE** (Crimson pulse alert).
-  - Confidence percentage meter and probability score readout.
-  - Latency readout in milliseconds (`latency: XX ms`).
-- **Inference Timeline Stream**: Rolling history log showing consecutive model outputs and confidence shifts.
+The fastest way to verify the backend is running is:
 
-### 2. Upload & Analyze
-- **Drag-and-Drop / File Picker**: Supports `.wav` and `.mp3` audio files (up to 30MB).
-- **One-Click Demo Presets**: Includes built-in synthesizer buttons ("Load Authentic Sample" and "Load Deepfake Sample") allowing instant demo execution without external files.
-- **Side-by-Side Visualizations**:
-  - **Interactive Waveform Player**: Built with `wavesurfer.js` (Play/Pause, scrub, timestamp).
-  - **Mel-Spectrogram Heatmap**: Rendered on HTML5 Canvas using a high-contrast cyber colormap from 64-mel log power spectrum matrices.
-- **Handcrafted Signal Statistics Cards**:
-  - **Spectral Centroid (Hz)**: Sound brightness & center of mass.
-  - **Spectral Bandwidth (Hz)**: Spectral frequency dispersion width.
-  - **Spectral Rolloff (Hz)**: 85% spectral energy cutoff frequency.
-  - **Zero-Crossing Rate (ZCR)**: Rate of sign changes per frame (fricatives & vocoder noise).
-  - **Spectral Flatness**: Tonality vs noise ratio (distinguishes synthetic phase artifacts).
+```powershell
+curl http://127.0.0.1:8000/health
+```
 
-### 3. Model Performance
-- **KPI Metrics Cards**: Accuracy (96.4%), Precision (95.8%), Recall (97.1%), F1 Score (96.5%).
-- **Confusion Matrix Heatmap**: 2x2 grid showing True Real, False Fake, False Real, and True Fake counts and percentages.
-- **ROC Curve Chart**: Recharts interactive line plot of TPR vs FPR with Area Under the Curve (AUC = 0.989) and Equal Error Rate (EER = 3.58%).
-- **Acoustic Robustness Benchmark**: Comparative bar chart and breakdown across 6 challenging real-world scenarios:
-  1. *Clean Audio* (98.2%)
-  2. *Additive Noise (10 dB)* (94.5%)
-  3. *High Noise (0 dB)* (88.7%)
-  4. *Telephone Simulation (G.711 μ-law)* (91.3%)
-  5. *Low Bitrate MP3 (32 kbps)* (92.8%)
-  6. *Short Utterance (1.0s)* (86.4%)
-- **Architectural Badge**: Clarifies that the ensemble is reserved for deep file analysis while the live tab runs the lightweight real-time model.
+PowerShell may display an `Invoke-WebRequest` security prompt when `curl` is used as an alias. You can avoid that prompt with:
 
-### 4. About & Pipeline
-- Full technical overview of the anti-spoofing pipeline.
-- Interactive 5-stage architectural flow diagram.
-- REST & WebSocket API specification.
+```powershell
+curl.exe http://127.0.0.1:8000/health
+```
+
+A real E4 deployment should report values similar to:
+
+```json
+{
+  "status": "healthy",
+  "is_mock": false,
+  "operating_threshold": 0.5,
+  "lightweight_loaded": true,
+  "engine": "E4 Multi-Scale Raw-Waveform CNN"
+}
+```
 
 ---
 
-## 🧠 Model Hot-Swapping & Zero-Restart Architecture
+# 📡 API
 
-The backend features an automatic dynamic model discovery engine. It continuously scans `voiceguard/backend/models/` for:
+## `GET /`
 
-1. `lightweight_antispoof.h5` (or `lightweight_antispoof.tflite`):
-   - Used for the ultra-low latency live mic stream (`WS /predict-stream`).
-2. `fold_model_0.h5` ... `fold_model_N.h5`:
-   - Loaded into memory as a multi-fold ensemble for forensic uploads (`POST /predict`).
-3. `config.json`:
-   - Defines `operating_threshold` (default `0.5`) and label order.
+Returns basic service information and the current inference mode.
 
-### Graceful Mock Engine Fallback
-- If the neural model weight files are not yet present, **the server does not crash**.
-- It automatically activates an intelligent, signal-informed mock inference engine that evaluates energy and acoustic stats to produce natural probabilistic outputs.
-- A persistent warning banner appears at the top:
-  `"Demo mode — using mock predictions, model not loaded yet."`
-- As soon as real `.h5` or `.tflite` model files are dropped into `backend/models/`, VoiceGuard detects them within 5 seconds and activates real neural inference without restarting the server!
+## `GET /health`
 
----
+Reports backend and model health.
 
-## 📡 Backend API Contract
+Important fields:
 
-### 1. `POST /predict` (Multipart Audio Upload)
-- **Request**: `file: UploadFile` (.wav / .mp3)
-- **Response**:
+| Field | Meaning |
+|---|---|
+| `status` | Backend health status |
+| `is_mock` | Whether fallback/mock inference is active |
+| `operating_threshold` | Classification threshold |
+| `ensemble_folds` | Number of loaded ensemble folds |
+| `lightweight_loaded` | Whether the active inference model is loaded |
+| `engine` | Active model engine |
+
+## `POST /predict`
+
+Accepts an uploaded audio file and performs forensic-style inference.
+
+Typical response fields include:
+
 ```json
 {
   "label": "REAL",
   "confidence": 0.942,
   "prob_real": 0.942,
-  "waveform": [0.01, 0.05, ...],
-  "mel_spectrogram": [[...], ...],
-  "stats": {
-    "centroid": 2150.4,
-    "bandwidth": 1820.1,
-    "rolloff": 3410.5,
-    "zcr": 0.042,
-    "flatness": 0.0084
-  },
   "latency_ms": 38.2,
   "is_mock": false,
-  "model_type": "Ensemble (5 Folds)",
   "audio_duration_sec": 3.0
 }
 ```
 
-### 2. `WS /predict-stream` (Live Mic Streaming)
-- **Client sends**: Binary `Float32Array` PCM buffer (16kHz mono, ~1.5s - 3.0s).
-- **Server responds**:
+The response can also contain visualization data and extracted signal statistics used by the frontend.
+
+## `WS /predict-stream`
+
+Provides real-time inference over a WebSocket connection.
+
+The browser streams audio data and receives model predictions containing fields such as:
+
 ```json
 {
   "label": "REAL",
@@ -173,28 +402,317 @@ The backend features an automatic dynamic model discovery engine. It continuousl
 }
 ```
 
-### 3. `GET /metrics`
-- **Response**:
+## `GET /metrics`
+
+Returns the metrics stored by the backend for display in the performance section.
+
+---
+
+# 🔬 Audio Analysis
+
+VoiceGuard's preprocessing and visualization pipeline works with several complementary representations.
+
+### Raw waveform
+
+The E4 engine operates on raw audio waveform information rather than requiring the frontend to construct a model-specific spectrogram representation.
+
+### Log-Mel representation
+
+The backend also exposes log-Mel information for visualization and acoustic analysis.
+
+### Signal statistics
+
+The UI can display statistics such as:
+
+- **Spectral centroid** — frequency-weighted center of spectral energy.
+- **Spectral bandwidth** — spread of spectral energy around the centroid.
+- **Spectral rolloff** — frequency below which a selected proportion of spectral energy lies.
+- **Zero-crossing rate** — rate at which the waveform changes sign.
+- **Spectral flatness** — indication of how noise-like or tonal a spectrum is.
+
+These measurements are presented as supporting evidence and should not be interpreted as independent proof of synthetic speech.
+
+---
+
+# 📊 Model Metrics
+
+The repository contains a `backend/metrics.json` file consumed by the API.
+
+The current application exposes metrics such as:
+
+- Accuracy
+- Precision
+- Recall
+- F1 score
+- Equal Error Rate (EER)
+- Area Under the ROC Curve (AUC)
+- Confusion matrix
+- ROC curve data
+- Robustness benchmark information
+
+**Important:** Reported metrics are dataset/evaluation dependent. They should not be interpreted as universal real-world detection accuracy. When presenting VoiceGuard in a research, academic, or competition setting, always state the evaluation dataset, split, protocol, and conditions associated with the numbers.
+
+---
+
+# 🧪 Mock / Fallback Mode
+
+The backend contains a fallback path for environments where the required neural model is unavailable.
+
+The API exposes this state through:
+
 ```json
-{
-  "accuracy": 0.9642,
-  "precision": 0.9587,
-  "recall": 0.9715,
-  "f1": 0.9651,
-  "eer": 0.0358,
-  "auc": 0.9892,
-  "confusion_matrix": { ... },
-  "roc_curve": { "fpr": [...], "tpr": [...] },
-  "robustness": [ ... ],
-  "ensemble_note": "Ensemble model — not used for live detection (too slow); live tab uses the lightweight real-time model"
-}
+"is_mock": true
+```
+
+When the E4 checkpoint is successfully loaded, the API reports:
+
+```json
+"is_mock": false
+```
+
+For demonstrations or evaluation, verify the `/health` response before claiming that a prediction was produced by the E4 model.
+
+---
+
+# 🎨 Frontend Modules
+
+The frontend is organized around several application sections.
+
+### Live Detector
+
+The real-time interface provides microphone capture, streaming inference, waveform/frequency visualization, verdict information, confidence, latency, and inference history.
+
+### Forensic Analyzer
+
+The upload workflow provides audio selection, waveform playback, spectrogram visualization, signal statistics, and model results.
+
+### Technical Site Sections
+
+The landing/application experience also contains dedicated sections for:
+
+- Problem definition
+- Acoustic signals
+- Architecture pipeline
+- Engine comparison
+- Performance
+- System status
+- Technical details
+- Final call-to-action
+
+This keeps the product interface useful both as an interactive detector and as a technical demonstration of the system architecture.
+
+---
+
+# 🔐 Browser Permissions
+
+Real-time microphone detection requires browser permission to access the microphone.
+
+When prompted, select **Allow**.
+
+For production deployment, serve the frontend over HTTPS because browser media APIs have secure-context requirements in many deployment scenarios.
+
+---
+
+# 🧰 Development Workflow
+
+### Backend
+
+```powershell
+cd backend
+.\venv\Scripts\activate
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+### Check backend health
+
+```powershell
+curl.exe http://127.0.0.1:8000/health
+```
+
+### Check Git state
+
+```powershell
+git status
+git log --oneline -5
 ```
 
 ---
 
-## 🏆 Smart India Hackathon Demo Presentation Highlights
+# 🐛 Troubleshooting
 
-When demonstrating VoiceGuard to judges:
-1. **Highlight the Dual-Engine Approach**: Explain how the lightweight model enables sub-50ms live stream detection during ongoing VoIP/phone calls, while the heavier ensemble is deployed for evidentiary forensic file analysis.
-2. **Demonstrate Spectral Anomalies**: Navigate to "Upload & Analyze", load the deepfake sample preset, and explain how vocoders cause distinct high-frequency phase artifacts visible in the mel-spectrogram heatmap and reflected in the spectral flatness and rolloff cards.
-3. **Showcase Real-World Robustness**: In "Model Performance", direct attention to the 6-condition robustness benchmark showing resilience against 0dB background noise and lossy 32kbps telephonic compression.
+### `curl` shows an Invoke-WebRequest warning on Windows
+
+Use:
+
+```powershell
+curl.exe http://127.0.0.1:8000/health
+```
+
+instead of the PowerShell `curl` alias.
+
+### Backend cannot find the model
+
+Verify that the E4 checkpoint exists at:
+
+```text
+backend/models/e4/best_e4.pt
+```
+
+Then restart the backend and check `/health`.
+
+### Microphone does not work
+
+Check:
+
+1. Browser microphone permission.
+2. Correct input device.
+3. Browser secure-context requirements.
+4. Browser console errors.
+5. Backend availability on port `8000`.
+
+### Frontend cannot reach the API
+
+Confirm the backend is running:
+
+```powershell
+curl.exe http://127.0.0.1:8000/health
+```
+
+Then inspect the API configuration in:
+
+```text
+frontend/src/lib/api.ts
+```
+
+### `npm` is blocked by PowerShell execution policy
+
+Use:
+
+```powershell
+npm.cmd install
+npm.cmd run dev
+```
+
+---
+
+# ⚠️ Limitations & Responsible Use
+
+VoiceGuard is a research/software project and should not be treated as an infallible authenticity oracle.
+
+Detection performance can vary with:
+
+- Recording devices
+- Codecs and compression
+- Background noise
+- Reverberation
+- Short utterances
+- Unseen voice-generation systems
+- Language and speaker characteristics
+- Distribution shift between training and deployment data
+
+A model confidence score is not the same thing as certainty.
+
+For high-stakes decisions, VoiceGuard should be treated as one component of a broader forensic investigation rather than as the sole basis for a decision.
+
+---
+
+# 🔭 Future Improvements
+
+Potential development directions include:
+
+- Stronger cross-dataset evaluation.
+- More diverse multilingual and speaker-balanced evaluation.
+- Additional codec/noise robustness testing.
+- Calibration of confidence scores.
+- Model explainability and evidence visualization.
+- More comprehensive adversarial testing.
+- Production authentication and authorization.
+- Persistent analysis history.
+- Secure cloud deployment.
+- Automated model/version management.
+- CI/CD and automated evaluation pipelines.
+- Expanded benchmark reporting with reproducible experiment configurations.
+
+---
+
+# 📚 Research & Technical Context
+
+VoiceGuard sits at the intersection of:
+
+- Audio deepfake detection
+- Automatic speaker/audio anti-spoofing
+- Digital forensics
+- Raw-waveform deep learning
+- Acoustic signal processing
+- Real-time inference systems
+
+The project is particularly focused on connecting a research-oriented detection model to a usable software system rather than presenting model inference in isolation.
+
+---
+
+# 🏆 Smart India Hackathon
+
+VoiceGuard was developed as a **Smart India Hackathon** project concept focused on AI-assisted voice deepfake and anti-spoofing detection.
+
+The system demonstrates how a trained audio model can be integrated into a complete application containing:
+
+```text
+Machine Learning
+      +
+Audio Signal Processing
+      +
+FastAPI Inference
+      +
+WebSocket Streaming
+      +
+React Frontend
+      +
+Interactive Forensic Visualization
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions and technical feedback are welcome.
+
+A typical workflow is:
+
+```bash
+git checkout -b feature/your-feature
+git add .
+git commit -m "feat: describe your change"
+git push origin feature/your-feature
+```
+
+For substantial changes, please document:
+
+- What changed
+- Why it changed
+- How it was tested
+- Any model/data implications
+- Any new environment requirements
+
+---
+
+# 📄 License
+
+See the repository for the project's current license information.
+
+If you intend to distribute VoiceGuard publicly, add an explicit `LICENSE` file describing the permitted use of the source code and model weights.
+
+---
+
+## ⭐ VoiceGuard
+
+**Detect the signal. Inspect the evidence. Understand the model.**
+
+Built with React, FastAPI, Python, signal processing, and the E4 Multi-Scale Raw-Waveform CNN.
