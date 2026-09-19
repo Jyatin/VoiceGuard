@@ -3,12 +3,12 @@ import type { MetricsData, PredictionResponse, SystemHealth } from '../types';
 /**
  * Single source of truth for the backend location.
  *
- * Vercel should set VITE_API_BASE to the Render URL. The production fallback
- * below matches the current Render service name so the live detector also works
- * when the environment variable was omitted during the first deployment.
+ * Vercel can override this with VITE_API_BASE. The production fallback points
+ * to the deployed Render backend so the detector works even if the variable
+ * was omitted from the initial Vercel deployment.
  */
 const configuredBase = (import.meta.env?.VITE_API_BASE as string | undefined)?.trim();
-const DEFAULT_PRODUCTION_BASE = 'https://voiceguard-api.onrender.com';
+const DEFAULT_PRODUCTION_BASE = 'https://voiceguard-api-fhri.onrender.com';
 
 export const apiBase = (): string => {
   const base = configuredBase ||
