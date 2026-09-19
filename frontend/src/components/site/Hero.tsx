@@ -90,8 +90,8 @@ export function Hero() {
       className="band band--flush hero"
       id="top"
       style={{
-        paddingTop: 'clamp(4.5rem, 9vh, 7rem)',
-        paddingBottom: 'clamp(5rem, 10vh, 8rem)',
+        paddingTop: 'clamp(3.25rem, 6vh, 4.75rem)',
+        paddingBottom: 'clamp(4rem, 7vh, 5.75rem)',
         position: 'relative',
         isolation: 'isolate',
         overflow: 'hidden',
