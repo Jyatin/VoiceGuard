@@ -124,7 +124,7 @@ export function Hero() {
 
           <div className="hero-copy__support reveal reveal--3">
             <p className="lede hero-lede">
-              VoiceGuard detects synthetic and manipulated speech in real time — before a
+              VoxShield detects synthetic and manipulated speech in real time — before a
               convincing voice becomes a security breach.
             </p>
             <div className="hero-actions">
