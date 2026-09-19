@@ -6,9 +6,12 @@
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  opacity: 0.42;
+  opacity: 0.52;
   mix-blend-mode: multiply;
-  filter: contrast(1.12) saturate(0.35) brightness(1.08);
+  /* The source video is white waves on black. Invert it so the black
+     background becomes white and only the wave remains visible on the
+     light VoiceGuard canvas. */
+  filter: invert(1) contrast(1.35) saturate(0.55);
   z-index: 0;
 }
 
@@ -18,8 +21,8 @@
   pointer-events: none;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(241, 242, 239, 0.52) 0%, rgba(241, 242, 239, 0.28) 42%, rgba(241, 242, 239, 0.12) 72%, rgba(241, 242, 239, 0.32) 100%),
-    linear-gradient(180deg, rgba(241, 242, 239, 0.10), rgba(241, 242, 239, 0.34));
+    linear-gradient(90deg, rgba(241, 242, 239, 0.16) 0%, rgba(241, 242, 239, 0.06) 42%, rgba(241, 242, 239, 0.02) 72%, rgba(241, 242, 239, 0.12) 100%),
+    linear-gradient(180deg, rgba(241, 242, 239, 0.04), rgba(241, 242, 239, 0.12));
 }
 
 .hero-video__content {
@@ -29,14 +32,14 @@
 
 @media (max-width: 899px) {
   .hero-video {
-    opacity: 0.34;
+    opacity: 0.42;
     object-position: 58% center;
   }
 
   .hero-video__veil {
     background:
-      linear-gradient(180deg, rgba(241, 242, 239, 0.58), rgba(241, 242, 239, 0.42)),
-      linear-gradient(90deg, rgba(241, 242, 239, 0.52), rgba(241, 242, 239, 0.28));
+      linear-gradient(180deg, rgba(241, 242, 239, 0.16), rgba(241, 242, 239, 0.10)),
+      linear-gradient(90deg, rgba(241, 242, 239, 0.18), rgba(241, 242, 239, 0.08));
   }
 }
 
