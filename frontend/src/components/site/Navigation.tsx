@@ -25,7 +25,7 @@ export function Navigation() {
       <div className="shell nav__inner">
         <a className="nav__mark" href="#top">
           <Mark />
-          VOICEGUARD
+          VOXSHIELD
         </a>
 
         <nav className="nav__links" aria-label="Sections">
