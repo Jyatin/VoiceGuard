@@ -90,7 +90,8 @@ export function Hero() {
       className="band band--flush hero"
       id="top"
       style={{
-        paddingTop: 'clamp(3rem, 8vh, 6rem)',
+        paddingTop: 'clamp(4.5rem, 9vh, 7rem)',
+        paddingBottom: 'clamp(5rem, 10vh, 8rem)',
         position: 'relative',
         isolation: 'isolate',
         overflow: 'hidden',
@@ -110,23 +111,23 @@ export function Hero() {
       <div className="hero-video__veil" aria-hidden="true" />
 
       <div className="shell hero-video__content">
-        <div className="grid12" style={{ rowGap: 'clamp(2rem, 4vw, 3rem)' }}>
-          <div className="col-lead reveal" style={{ gridColumn: 'span 12' }}>
+        <div className="hero-copy">
+          <div className="hero-copy__eyebrow reveal">
             <span className="tag">Real-time voice security</span>
           </div>
 
-          <div className="reveal reveal--2" style={{ gridColumn: '1 / -1' }}>
-            <h1 className="display" style={{ maxWidth: '22ch' }}>
+          <div className="hero-copy__headline reveal reveal--2">
+            <h1 className="display hero-title">
               Know when a voice isn&rsquo;t real.
             </h1>
           </div>
 
-          <div className="reveal reveal--3 col-offset">
-            <p className="lede" style={{ maxWidth: '48ch' }}>
+          <div className="hero-copy__support reveal reveal--3">
+            <p className="lede hero-lede">
               VoiceGuard detects synthetic and manipulated speech in real time — before a
               convincing voice becomes a security breach.
             </p>
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1.75rem' }}>
+            <div className="hero-actions">
               <a className="btn" href="#detector">
                 Open detector <span className="arw">→</span>
               </a>
@@ -136,7 +137,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div style={{ gridColumn: '1 / -1' }}>
+          <div className="hero-copy__trace">
             <ReferenceTrace />
           </div>
         </div>
