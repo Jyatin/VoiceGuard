@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { authenticSample, drawTrace, envelope, fitCanvas, prefersReducedMotion } from '../../lib/signal';
+import './hero-video.css';
 
 /**
  * The hero scope draws the shared reference signal (see lib/signal.ts).
@@ -85,8 +86,30 @@ function ReferenceTrace() {
 
 export function Hero() {
   return (
-    <section className="band band--flush" id="top" style={{ paddingTop: 'clamp(3rem, 8vh, 6rem)' }}>
-      <div className="shell">
+    <section
+      className="band band--flush hero"
+      id="top"
+      style={{
+        paddingTop: 'clamp(3rem, 8vh, 6rem)',
+        position: 'relative',
+        isolation: 'isolate',
+        overflow: 'hidden',
+      }}
+    >
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      >
+        <source src="/voiceguard-wave-bg.mp4" type="video/mp4" />
+      </video>
+      <div className="hero-video__veil" aria-hidden="true" />
+
+      <div className="shell hero-video__content">
         <div className="grid12" style={{ rowGap: 'clamp(2rem, 4vw, 3rem)' }}>
           <div className="col-lead reveal" style={{ gridColumn: 'span 12' }}>
             <span className="tag">Real-time voice security</span>
