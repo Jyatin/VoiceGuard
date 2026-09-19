@@ -6,9 +6,9 @@
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  opacity: 0.18;
-  mix-blend-mode: screen;
-  filter: contrast(1.05) saturate(0);
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+  filter: contrast(1.12) saturate(0.35) brightness(1.08);
   z-index: 0;
 }
 
@@ -18,8 +18,8 @@
   pointer-events: none;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(241, 242, 239, 0.96) 0%, rgba(241, 242, 239, 0.82) 38%, rgba(241, 242, 239, 0.58) 70%, rgba(241, 242, 239, 0.72) 100%),
-    linear-gradient(180deg, rgba(241, 242, 239, 0.22), rgba(241, 242, 239, 0.72));
+    linear-gradient(90deg, rgba(241, 242, 239, 0.52) 0%, rgba(241, 242, 239, 0.28) 42%, rgba(241, 242, 239, 0.12) 72%, rgba(241, 242, 239, 0.32) 100%),
+    linear-gradient(180deg, rgba(241, 242, 239, 0.10), rgba(241, 242, 239, 0.34));
 }
 
 .hero-video__content {
@@ -29,14 +29,14 @@
 
 @media (max-width: 899px) {
   .hero-video {
-    opacity: 0.13;
+    opacity: 0.34;
     object-position: 58% center;
   }
 
   .hero-video__veil {
     background:
-      linear-gradient(180deg, rgba(241, 242, 239, 0.9), rgba(241, 242, 239, 0.72)),
-      linear-gradient(90deg, rgba(241, 242, 239, 0.88), rgba(241, 242, 239, 0.62));
+      linear-gradient(180deg, rgba(241, 242, 239, 0.58), rgba(241, 242, 239, 0.42)),
+      linear-gradient(90deg, rgba(241, 242, 239, 0.52), rgba(241, 242, 239, 0.28));
   }
 }
 
