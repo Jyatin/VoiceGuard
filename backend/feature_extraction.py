@@ -1,4 +1,4 @@
-﻿import numpy as np
+import numpy as np
 import librosa
 import soundfile as sf
 import io
@@ -63,10 +63,19 @@ def get_signal_stats_dict(audio: np.ndarray, sr: int = SAMPLE_RATE) -> dict:
 
 def load_audio_from_bytes(file_bytes: bytes) -> tuple[np.ndarray, int]:
     """
-    Load audio bytes (.wav, .mp3, etc.), convert to mono and resample to 16kHz.
+    Load only the first CLIP_DURATION seconds of audio.
+
+    The forensic UI promises a 3-second model window. Limiting decoding here
+    prevents large recordings from being fully decoded and then sent through
+    expensive inference. This keeps upload analysis bounded and predictable.
     """
     bio = io.BytesIO(file_bytes)
-    audio, sr = librosa.load(bio, sr=SAMPLE_RATE, mono=True)
+    audio, sr = librosa.load(
+        bio,
+        sr=SAMPLE_RATE,
+        mono=True,
+        duration=CLIP_DURATION,
+    )
     return audio, sr
 
 def fix_clip_length(audio: np.ndarray, target_len: int = TARGET_SAMPLES) -> np.ndarray:
