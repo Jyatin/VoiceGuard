@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛡️ VoiceGuard
+# 🛡️ VoxShield
 
 ### **AI-Powered Voice Deepfake Detection & Audio Forensics**
 
@@ -37,7 +37,7 @@
 </tr>
 </table>
 
-> **VoiceGuard** is an AI-based audio security prototype developed for an **SIH-oriented cybersecurity use case**. It analyzes speech recordings and live microphone input to estimate whether audio is authentic or synthetic, while exposing supporting acoustic and model-level evidence.
+> **VoxShield** is an AI-based audio security prototype developed for an **SIH-oriented cybersecurity use case**. It analyzes speech recordings and live microphone input to estimate whether audio is authentic or synthetic, while exposing supporting acoustic and model-level evidence.
 
 ---
 
@@ -47,7 +47,7 @@ Generative AI has lowered the barrier to producing highly convincing synthetic s
 
 The challenge is not simply to produce a **REAL / SYNTHETIC** label. A useful detection system should also provide a workflow for **inspection, evidence, latency, confidence, and technical interpretation**.
 
-### VoiceGuard's objective
+### VoxShield's objective
 
 ```text
                  UNTRUSTED AUDIO
@@ -59,7 +59,7 @@ The challenge is not simply to produce a **REAL / SYNTHETIC** label. A useful de
           └────────────┬────────────┘
                        ▼
               ┌─────────────────┐
-              │    VOICEGUARD   │
+              │    VOXSHIELD   │
               │  AUDIO FORENSICS│
               └────────┬────────┘
                        ▼
@@ -77,7 +77,7 @@ The challenge is not simply to produce a **REAL / SYNTHETIC** label. A useful de
 
 ---
 
-# ✨ What VoiceGuard Does
+# ✨ What VoxShield Does
 
 ### 🎙️ Real-Time Voice Detection
 
@@ -144,7 +144,7 @@ flowchart TB
     DECISION --> REAL[✅ REAL]
     DECISION --> FAKE[⚠️ SYNTHETIC]
 
-    FEATURES --> DASH[📊 VoiceGuard Dashboard]
+    FEATURES --> DASH[📊 VoxShield Dashboard]
     SCORE --> DASH
     REAL --> DASH
     FAKE --> DASH
@@ -175,7 +175,7 @@ sequenceDiagram
 
 # 🧠 E4 Detection Engine
 
-The active VoiceGuard backend uses the **E4 Multi-Scale Raw-Waveform CNN**.
+The active VoxShield backend uses the **E4 Multi-Scale Raw-Waveform CNN**.
 
 The inference pipeline is designed around waveform-level information rather than treating a spectrogram displayed by the UI as the detector itself.
 
@@ -212,7 +212,7 @@ The deployed local backend has been verified with a successful health response i
 
 # 🔬 Supporting Acoustic Analysis
 
-VoiceGuard exposes signal-level information alongside neural inference to make the result more inspectable.
+VoxShield exposes signal-level information alongside neural inference to make the result more inspectable.
 
 | Analysis | What it provides |
 |---|---|
@@ -323,7 +323,7 @@ Presentation-friendly views for communicating model performance, system architec
 # 📂 Repository Structure
 
 ```text
-VoiceGuard/
+VoxShield/
 │
 ├── backend/
 │   ├── main.py
@@ -359,7 +359,7 @@ VoiceGuard/
 │   ├── vite.config.ts
 │   └── tsconfig.json
 │
-├── START_VOICEGUARD.bat
+├── START_VOXSHIELD.bat
 ├── run_app.bat
 ├── CLAUDE.md
 └── README.md
@@ -372,8 +372,8 @@ VoiceGuard/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/Jyatin/VoiceGuard.git
-cd VoiceGuard
+git clone https://github.com/Jyatin/VoxShield.git
+cd VoxShield
 ```
 
 ## 2. Create the backend environment
@@ -502,7 +502,7 @@ The live detector sends audio chunks over WebSocket and receives prediction upda
 
 # 🏆 Smart India Hackathon — Demo Story
 
-VoiceGuard is structured to make the technical story easy to communicate during an **SIH presentation**.
+VoxShield is structured to make the technical story easy to communicate during an **SIH presentation**.
 
 ```mermaid
 flowchart LR
@@ -519,7 +519,7 @@ flowchart LR
 Explain the security risk created by increasingly accessible voice synthesis.
 
 **02 — Solution**  
-Introduce VoiceGuard as an analysis pipeline rather than a simple binary classifier.
+Introduce VoxShield as an analysis pipeline rather than a simple binary classifier.
 
 **03 — Architecture**  
 Show browser → FastAPI → audio preprocessing → E4 CNN → result.
@@ -537,7 +537,7 @@ Finish with the evaluation dashboard, robustness results, limitations, and futur
 
 # 🔐 Responsible Use & Limitations
 
-VoiceGuard is a research / engineering prototype for audio deepfake analysis. Detection performance can vary with:
+VoxShield is a research / engineering prototype for audio deepfake analysis. Detection performance can vary with:
 
 - unseen voice-generation systems
 - codecs and compression
@@ -602,11 +602,11 @@ Then open a pull request with:
 
 # 📚 Project Focus
 
-VoiceGuard brings together **AI/ML, audio signal processing, cybersecurity, real-time systems, and modern web engineering** into one demonstrable platform.
+VoxShield brings together **AI/ML, audio signal processing, cybersecurity, real-time systems, and modern web engineering** into one demonstrable platform.
 
 ```text
                  ┌───────────────────────────┐
-                 │        VOICEGUARD          │
+                 │        VOXSHIELD          │
                  └─────────────┬─────────────┘
                                │
        ┌───────────────────────┼───────────────────────┐
@@ -624,7 +624,7 @@ VoiceGuard brings together **AI/ML, audio signal processing, cybersecurity, real
 
 <div align="center">
 
-### 🛡️ VoiceGuard
+### 🛡️ VoxShield
 
 **AI-powered voice deepfake detection & audio forensics**
 
