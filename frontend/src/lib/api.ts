@@ -2,18 +2,24 @@ import type { MetricsData, PredictionResponse, SystemHealth } from '../types';
 
 /**
  * Single source of truth for the backend location.
- * Override at build time with VITE_API_BASE (e.g. https://api.example.com).
- * Falls back to the audited default: same host, port 8000.
+ *
+ * Vercel should set VITE_API_BASE to the Render URL. The production fallback
+ * below matches the current Render service name so the live detector also works
+ * when the environment variable was omitted during the first deployment.
  */
-const envBase = (import.meta.env?.VITE_API_BASE as string | undefined)?.replace(/\/$/, '');
+const configuredBase = (import.meta.env?.VITE_API_BASE as string | undefined)?.trim();
+const DEFAULT_PRODUCTION_BASE = 'https://voiceguard-api.onrender.com';
 
-export const apiBase = (): string =>
-  envBase || `${window.location.protocol}//${window.location.hostname}:8000`;
-
-export const wsBase = (): string => {
-  const base = apiBase();
-  return base.replace(/^http/, 'ws');
+export const apiBase = (): string => {
+  const base = configuredBase ||
+    (import.meta.env?.DEV
+      ? `${window.location.protocol}//${window.location.hostname}:8000`
+      : DEFAULT_PRODUCTION_BASE);
+  return base.replace(/\/$/, '');
 };
+
+export const wsBase = (): string =>
+  apiBase().replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
 
 export async function getHealth(): Promise<SystemHealth> {
   const res = await fetch(`${apiBase()}/health`);
